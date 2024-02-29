@@ -1,5 +1,7 @@
 package com.walletu
 
+// Fix `Unresolved Reference: Bundle`. Ref: https://stackoverflow.com/a/57765476
+import android.os.Bundle
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
