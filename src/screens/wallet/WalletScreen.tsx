@@ -39,7 +39,7 @@ export const WalletScreen: React.FC = () => {
           {isLoading ? (
             <ActivityIndicator />
           ) : (
-            // TODO: Format eGLD amount into XeGLD
+            // TODO: Format eGLD amount into XeGLD (1 xEGLD = 10^18 eGLD)
             <Text style={styles.dataText}>{account?.balance} eGLD</Text>
           )}
         </>

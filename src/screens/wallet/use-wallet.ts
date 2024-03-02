@@ -40,6 +40,7 @@ export const useWallet = (address: string) => {
       }
 
       try {
+        // TODO: request last 10 transactions, not all. use `size` option for this
         const transactionsResponse = await fetch(
           `${BASE_URL}/accounts/${address}/transactions`,
         );
