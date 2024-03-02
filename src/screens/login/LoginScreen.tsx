@@ -1,9 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet, Alert} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {StackParamList} from 'src/navigation/StackParamList';
 import {getAddressFromMnemonic} from 'src/services/auth-service';
 
 export const LoginScreen = () => {
-  const [wordsInput, setWordsInput] = useState('');
+  const {replace} =
+    useNavigation<NativeStackNavigationProp<StackParamList, 'Wallet'>>();
+
+  const [wordsInput, setWordsInput] = useState<string>('');
   const [parseErrorMessage, setParseErrorMessage] = useState<
     string | undefined
   >();
@@ -14,14 +20,12 @@ export const LoginScreen = () => {
 
       setParseErrorMessage(undefined);
 
-      Alert.alert('Success', address);
-
-      // TODO: navigate away
+      replace('Wallet', {address});
     } catch (error) {
       console.debug('Error:', error);
       setParseErrorMessage('Wrong mnemonic format');
     }
-  }, [wordsInput]);
+  }, [replace, wordsInput]);
 
   // Clear error message when user changes input
   useEffect(() => {
@@ -58,6 +62,7 @@ export const LoginScreen = () => {
   );
 };
 
+// TODO-UI: use theming library and unify colors and metrics
 const styles = StyleSheet.create({
   buttonContainer: {marginTop: 20},
   container: {
