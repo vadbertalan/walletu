@@ -1,13 +1,13 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {FC} from 'react';
-import {HomeScreen} from '../screens/HomeScreen';
+import {LoginScreen} from 'src/screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
 export const RootStackNavigator: FC = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen component={HomeScreen} name="Home" />
+      <Stack.Screen component={LoginScreen} name="Login" />
     </Stack.Navigator>
   );
 };
