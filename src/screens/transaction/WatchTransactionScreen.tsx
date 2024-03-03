@@ -39,7 +39,7 @@ export const WatchTransactionScreen: React.FC = () => {
       try {
         const apiNetworkProvider = new ApiNetworkProvider(BASE_URL);
         const watcher = new TransactionWatcher(apiNetworkProvider);
-        const transactionOnNetwork = await watcher.awaitPending({
+        const transactionOnNetwork = await watcher.awaitCompleted({
           getHash: () => new TransactionHash(transaction.hash),
         });
         console.debug('Transaction on network done:', transactionOnNetwork);
