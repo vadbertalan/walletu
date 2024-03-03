@@ -3,10 +3,11 @@ import {Text, Alert, TouchableOpacity, StyleSheet} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {StackParamList} from 'src/navigation/StackParamList';
+import {StackParamLists} from 'src/navigation/stack-param-lists';
 
 export const LogoutButton: FC = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<StackParamLists>>();
 
   const handlePress = useCallback(() => {
     Alert.alert('Confirmation', 'Are you sure you want to logout?', [

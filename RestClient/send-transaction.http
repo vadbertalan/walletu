@@ -1,0 +1,4 @@
+POST https://testnet-api.multiversx.com/transactions
+Content-Type: application/json
+
+{"data": "YXNkZg==", "gasLimit": 50000, "nonce": 0, "receiver": "erd1zz8qd8rxj969q7dkxvh9rlgtvr7dyfg6zxwnqwkh660225mj5ygsepwh7c", "sender": "erd1xch5uwg5yjz6neamgemyfac4w96h3nt9j2zruqmsw7fcv22e74vquyp8sz", "signature": "21af2bbc9aada21d9dfb7ecf6fd4583b697b2642a6d35d366bfab2816de5a48eb9e2c1a2cd82b478b87504473d0d75012a22dcc5c45b390db0e524c7719a6305", "value": "2000000000000000000", "version": 1, "chainID": "T"}

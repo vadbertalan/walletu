@@ -4,4 +4,5 @@ export type Transaction = {
   receiver: string;
   value: string;
   timestamp: number;
+  nonce: number;
 };

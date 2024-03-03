@@ -2,21 +2,23 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
-import {StackParamList} from 'src/navigation/StackParamList';
+import IndexSelector from 'src/components/IndexSelector';
+import {StackParamLists} from 'src/navigation/stack-param-lists';
 import {getAddressFromMnemonic} from 'src/services/auth-service';
 
 export const LoginScreen = () => {
   const {replace} =
-    useNavigation<NativeStackNavigationProp<StackParamList, 'Wallet'>>();
+    useNavigation<NativeStackNavigationProp<StackParamLists, 'Wallet'>>();
 
-  const [wordsInput, setWordsInput] = useState<string>('');
+  const [wordsInput, setWordsInput] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [parseErrorMessage, setParseErrorMessage] = useState<
     string | undefined
   >();
 
   const handleLogin = useCallback(() => {
     try {
-      const address = getAddressFromMnemonic(wordsInput);
+      const address = getAddressFromMnemonic(wordsInput, selectedIndex);
 
       setParseErrorMessage(undefined);
 
@@ -25,7 +27,7 @@ export const LoginScreen = () => {
       console.debug('Error:', error);
       setParseErrorMessage('Wrong mnemonic format');
     }
-  }, [replace, wordsInput]);
+  }, [replace, selectedIndex, wordsInput]);
 
   // Clear error message when user changes input
   useEffect(() => {
@@ -46,6 +48,12 @@ export const LoginScreen = () => {
           value={wordsInput}
           multiline
         />
+
+        <IndexSelector
+          selected={selectedIndex}
+          setSelected={setSelectedIndex}
+        />
+
         {parseErrorMessage && (
           <Text style={styles.wordsInputError}>{parseErrorMessage}</Text>
         )}

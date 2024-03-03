@@ -2,18 +2,17 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Transaction} from 'src/types/transaction';
 
-interface TransactionListItemProps {
+interface OwnTransactionListItemTransactionListItemProps {
   address: string;
   transaction: Transaction;
 }
 
 const TX_HASH_FIRST_N_CHAR = 10;
 
-export const OwnTransactionListItem: React.FC<TransactionListItemProps> = ({
-  address,
-  transaction,
-}) => {
-  const formattedDate = new Date(transaction.timestamp).toLocaleString();
+export const OwnTransactionListItem: React.FC<
+  OwnTransactionListItemTransactionListItemProps
+> = ({address, transaction}) => {
+  const formattedDate = new Date(transaction.timestamp * 1000).toLocaleString();
 
   return (
     <View style={styles.container}>
@@ -22,7 +21,9 @@ export const OwnTransactionListItem: React.FC<TransactionListItemProps> = ({
       </Text>
 
       {/* TODO: Format eGLD amount into XeGLD */}
-      <Text>Amount: ${transaction.value} eGLD</Text>
+      <Text>Amount: {transaction.value} eGLD</Text>
+
+      <Text>Nonce: {transaction.nonce}</Text>
 
       <Text>Date: {formattedDate}</Text>
 

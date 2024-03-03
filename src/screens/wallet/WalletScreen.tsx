@@ -1,32 +1,49 @@
-import React from 'react';
-import {RouteProp, useRoute} from '@react-navigation/native';
+import React, {useCallback} from 'react';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
   Text,
   StyleSheet,
   ActivityIndicator,
   ScrollView,
   View,
+  Button,
+  RefreshControl,
 } from 'react-native';
 
-import {StackParamList} from 'src/navigation/StackParamList';
+import {StackParamLists} from 'src/navigation/stack-param-lists';
 import {useWallet} from './use-wallet';
-import {OwnTransactionListItem} from './transaction/TransactionListItem';
+import {OwnTransactionListItem} from './OwnTransactionListItem';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 
 export const WalletScreen: React.FC = () => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<StackParamLists, 'Wallet'>>();
   const {
     params: {address},
-  } = useRoute<RouteProp<StackParamList, 'Wallet'>>();
+  } = useRoute<RouteProp<StackParamLists, 'Wallet'>>();
 
   const {
     account,
     isLoading,
+    isRefreshing,
+    refreshAccount,
     accountRequestError,
     transactions,
     transactionsRequestError,
   } = useWallet(address);
 
+  // TODO: upon navigating back to this screen, refresh account data
+
+  const onSendTransactionPressed = useCallback(() => {
+    if (account) {
+      navigate('SendTransaction', {account});
+    }
+  }, [account, navigate]);
+
   return (
-    <ScrollView contentContainerStyle={styles.container} bounces={false}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <RefreshControl refreshing={isRefreshing} onRefresh={refreshAccount} />
+
       <Text style={styles.title}>Wallet</Text>
       <Text style={styles.subtitle}>Address</Text>
       <Text style={styles.dataText}>{address}</Text>
@@ -42,8 +59,24 @@ export const WalletScreen: React.FC = () => {
             // TODO: Format eGLD amount into XeGLD (1 xEGLD = 10^18 eGLD)
             <Text style={styles.dataText}>{account?.balance} eGLD</Text>
           )}
+
+          <Text style={styles.subtitle}>Nonce</Text>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            // TODO: Format eGLD amount into XeGLD (1 xEGLD = 10^18 eGLD)
+            <Text style={styles.dataText}>{account?.nonce}</Text>
+          )}
         </>
       )}
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Send transaction"
+          onPress={onSendTransactionPressed}
+          disabled={!account}
+        />
+      </View>
 
       {transactionsRequestError ? (
         <Text style={styles.errorText}>{transactionsRequestError}</Text>
@@ -101,4 +134,5 @@ const styles = StyleSheet.create({
     gap: 10,
     marginBottom: 20,
   },
+  buttonContainer: {marginVertical: 20},
 });

@@ -1,7 +1,10 @@
 import {Mnemonic} from '@multiversx/sdk-wallet';
 
-export const getAddressFromMnemonic = (mnemonicStr: string): string => {
+export const getAddressFromMnemonic = (
+  mnemonicStr: string,
+  index: number = 0,
+): string => {
   const mnemonic = Mnemonic.fromString(mnemonicStr);
 
-  return mnemonic.deriveKey(0).generatePublicKey().toAddress().bech32();
+  return mnemonic.deriveKey(index).generatePublicKey().toAddress().bech32();
 };

@@ -1,11 +1,13 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {FC} from 'react';
+
 import {LoginScreen} from 'src/screens/login/LoginScreen';
 import {WalletScreen} from 'src/screens/wallet/WalletScreen';
-import {StackParamList} from './StackParamList';
+import {StackParamLists} from './stack-param-lists';
+import {SendTransactionScreen} from 'src/screens/transaction/SendTransactionScreen';
 import {LogoutButton} from 'src/components/LogoutButton';
 
-const Stack = createNativeStackNavigator<StackParamList>();
+const Stack = createNativeStackNavigator<StackParamLists>();
 
 export const RootStackNavigator: FC = () => {
   return (
@@ -14,6 +16,11 @@ export const RootStackNavigator: FC = () => {
       <Stack.Group screenOptions={{headerLeft: LogoutButton}}>
         <Stack.Screen component={WalletScreen} name="Wallet" />
       </Stack.Group>
+      <Stack.Screen
+        component={SendTransactionScreen}
+        name="SendTransaction"
+        options={{title: 'Send transaction'}}
+      />
     </Stack.Navigator>
   );
 };
