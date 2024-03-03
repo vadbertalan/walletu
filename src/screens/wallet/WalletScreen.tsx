@@ -32,8 +32,6 @@ export const WalletScreen: React.FC = () => {
     transactionsRequestError,
   } = useWallet(address);
 
-  // TODO: upon navigating back to this screen, refresh account data
-
   const onSendTransactionPressed = useCallback(() => {
     if (account) {
       navigate('SendTransaction', {account});

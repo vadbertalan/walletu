@@ -1,4 +1,5 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import {useCallback, useState} from 'react';
 import {BASE_URL} from 'src/constants';
 import {Account} from 'src/types/account';
 import {PastTransaction} from 'src/types/transaction';
@@ -71,16 +72,19 @@ export const useWallet = (address: string) => {
     setRefreshing(false);
   }, [fetchAccount]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        await fetchAccount();
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [fetchAccount]);
+  // Fetch account data on initial render and when screen is focused
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        try {
+          setLoading(true);
+          await fetchAccount();
+        } finally {
+          setLoading(false);
+        }
+      })();
+    }, [fetchAccount]),
+  );
 
   return {
     account,
