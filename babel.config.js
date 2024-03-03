@@ -7,6 +7,7 @@ const commonPlugins = [
       root: [path.resolve('./')],
       alias: {
         src: './src',
+        '@ledgerhq/devices/hid-framing': '@ledgerhq/devices/lib/hid-framing',
       },
     },
   ],

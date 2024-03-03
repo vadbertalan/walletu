@@ -6,4 +6,5 @@ export type StackParamLists = {
   Wallet: {address: string};
   SendTransaction: {account: Account};
   WatchTransaction: {transaction: PendingTransaction};
+  Dapp: {account: Account};
 };

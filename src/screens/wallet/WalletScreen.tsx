@@ -38,6 +38,12 @@ export const WalletScreen: React.FC = () => {
     }
   }, [account, navigate]);
 
+  const onOpenDappPressed = useCallback(() => {
+    if (account) {
+      navigate('Dapp', {account});
+    }
+  }, [account, navigate]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <RefreshControl refreshing={isRefreshing} onRefresh={refreshAccount} />
@@ -72,6 +78,14 @@ export const WalletScreen: React.FC = () => {
         <Button
           title="Send transaction"
           onPress={onSendTransactionPressed}
+          disabled={!account}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Open Dapp"
+          onPress={onOpenDappPressed}
           disabled={!account}
         />
       </View>

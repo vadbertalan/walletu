@@ -7,6 +7,7 @@ import {StackParamLists} from './stack-param-lists';
 import {SendTransactionScreen} from 'src/screens/transaction/SendTransactionScreen';
 import {WatchTransactionScreen} from 'src/screens/transaction/WatchTransactionScreen';
 import {LogoutButton} from 'src/components/LogoutButton';
+import {DappScreen} from 'src/screens/dapp/DappScreen';
 
 const Stack = createNativeStackNavigator<StackParamLists>();
 
@@ -26,6 +27,11 @@ export const RootStackNavigator: FC = () => {
         component={WatchTransactionScreen}
         name="WatchTransaction"
         options={{title: 'Watch transaction'}}
+      />
+      <Stack.Screen
+        component={DappScreen}
+        name="Dapp"
+        options={{title: 'Dapp'}}
       />
     </Stack.Navigator>
   );
