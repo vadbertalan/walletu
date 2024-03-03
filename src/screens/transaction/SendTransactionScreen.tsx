@@ -15,10 +15,10 @@ import {StackParamLists} from 'src/navigation/stack-param-lists';
 import {TransactionService} from 'src/services/transaction-service';
 
 export const SendTransactionScreen: React.FC = () => {
-  //   const {navigate} =
-  useNavigation<
-    NativeStackNavigationProp<StackParamLists, 'SendTransaction'>
-  >();
+  const {replace} =
+    useNavigation<
+      NativeStackNavigationProp<StackParamLists, 'SendTransaction'>
+    >();
   const {
     params: {account},
   } = useRoute<RouteProp<StackParamLists, 'SendTransaction'>>();
@@ -39,15 +39,21 @@ export const SendTransactionScreen: React.FC = () => {
 
       const txHash = await TransactionService.sendTx(tx);
 
-      Alert.alert('Transaction sent', 'Transaction hash: ' + txHash);
-      // TODO: navigate to WatchTransaction screen
+      replace('WatchTransaction', {
+        transaction: {
+          hash: txHash,
+          receiver: toAddress,
+          value: amount,
+          sender: account.address,
+        },
+      });
     } catch (error) {
       console.debug('Error sending transaction:', error);
       Alert.alert('Error', 'Error sending transaction: ' + error);
     } finally {
       setSending(false);
     }
-  }, [account.address, amount, toAddress]);
+  }, [account.address, amount, replace, toAddress]);
 
   const isToAddressValid = toAddress.length > 0;
 

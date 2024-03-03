@@ -1,13 +1,13 @@
 import {useCallback, useEffect, useState} from 'react';
 import {BASE_URL} from 'src/constants';
 import {Account} from 'src/types/account';
-import {Transaction} from 'src/types/transaction';
+import {PastTransaction} from 'src/types/transaction';
 
 // TODO: rewrite with RTK Query
 // TODO: extract API logic
 export const useWallet = (address: string) => {
   const [account, setAccount] = useState<Account | undefined>();
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<PastTransaction[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   const [accountRequestError, setAccountRequestError] = useState<

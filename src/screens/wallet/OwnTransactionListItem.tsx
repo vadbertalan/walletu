@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Transaction} from 'src/types/transaction';
+import {PastTransaction} from 'src/types/transaction';
 
 interface OwnTransactionListItemTransactionListItemProps {
   address: string;
-  transaction: Transaction;
+  transaction: PastTransaction;
 }
 
 const TX_HASH_FIRST_N_CHAR = 10;
@@ -26,6 +26,8 @@ export const OwnTransactionListItem: React.FC<
       <Text>Nonce: {transaction.nonce}</Text>
 
       <Text>Date: {formattedDate}</Text>
+
+      {/* TODO: output status of transaction */}
 
       <View style={styles.otherAddressContainer}>
         {address === transaction.sender ? (

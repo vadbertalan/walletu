@@ -5,6 +5,7 @@ import {LoginScreen} from 'src/screens/login/LoginScreen';
 import {WalletScreen} from 'src/screens/wallet/WalletScreen';
 import {StackParamLists} from './stack-param-lists';
 import {SendTransactionScreen} from 'src/screens/transaction/SendTransactionScreen';
+import {WatchTransactionScreen} from 'src/screens/transaction/WatchTransactionScreen';
 import {LogoutButton} from 'src/components/LogoutButton';
 
 const Stack = createNativeStackNavigator<StackParamLists>();
@@ -20,6 +21,11 @@ export const RootStackNavigator: FC = () => {
         component={SendTransactionScreen}
         name="SendTransaction"
         options={{title: 'Send transaction'}}
+      />
+      <Stack.Screen
+        component={WatchTransactionScreen}
+        name="WatchTransaction"
+        options={{title: 'Watch transaction'}}
       />
     </Stack.Navigator>
   );

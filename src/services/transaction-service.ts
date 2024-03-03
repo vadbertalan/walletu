@@ -1,5 +1,5 @@
 import {Address, TokenTransfer, Transaction} from '@multiversx/sdk-core';
-import {Mnemonic, UserSigner} from '@multiversx/sdk-wallet/out';
+import {Mnemonic, UserSigner} from '@multiversx/sdk-wallet';
 import {BASE_URL} from 'src/constants';
 
 const recallAccountNonce = async (address: string): Promise<number> => {
